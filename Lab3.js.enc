@@ -1,0 +1,65 @@
+/**
+ * LABORATORIO #3 INDIVIDUAL
+ * CHRISTOPHER JIMENEZ 8-922-2240
+ * DS9
+ */
+(function () {
+
+    var App = {
+
+        Data: {
+            array: undefined
+        },
+        Methods: {
+            init: function (array) {
+
+                App.Methods.overridePrototype();
+                App.Data.array = array;
+
+            },
+            getPairOfArray: function () {
+
+                var cantOfPair = 0;
+                var array = App.Data.array;
+                var isPair = 1;
+
+                for (var index = 0; index < array.length; index++) {
+
+                    for (var j = index + 1; j < array.length; j++) {
+
+                        if (array[index] == array[j] && isPair < 2) {
+
+                            cantOfPair++;
+                            isPair++;
+
+                        }
+                    }
+
+                    isPair = 1;
+                }
+
+                return cantOfPair;
+            },
+            overridePrototype: function () {
+                App.Exceptions.MathException.prototype.toString = App.Utils.toString;
+            },
+            ThrowException1: function () {
+                throw new App.Exceptions.MathException('');
+            },
+        },
+        Exceptions: {
+            MathException: function (message) {
+                this.message = message;
+                this.name = 'MathException';
+            }
+        },
+        Utils: {
+            toString: function () {
+                return `${this.name}: ${this.message}`;
+            },
+
+        }
+    };
+    App.Methods.init([1, 1, 1, 1, 6, 6, 6, 5, 5, 4, 4]);
+    console.log("Cantidad de Pares en el Array: ", App.Methods.getPairOfArray());
+})();
